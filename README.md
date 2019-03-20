@@ -1,5 +1,6 @@
-Repository items
-|Item|date|classes|
-|---|---|---|
-|Animals|2019.03.18.|Animals,Vet,Pet Owner|
-|...|...|...|
+***Repository items***
+
+| PackageName | Date | Classes |
+|:--------|:--------|:--------|
+| Animals | 2019.03.18 | Animal,Vet,PetOwner |
+| ... | ... | ... |

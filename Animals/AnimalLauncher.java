@@ -1,20 +1,33 @@
 package Animals;
 
+import java.util.ArrayList;
+
 public class AnimalLauncher {
     public static void main(String[] arg){
-        //Instantiate objects for each classes. The Animal objects are referenced in the array
+        //Instantiate objects for each classes
         PetOwner PO = new PetOwner();
         Vet vet = new Vet();
-        Animal[] pets = new Animal[6];
-        pets[0] = new Cat();
-        pets[1] = new Dog();
-        pets[2] = new Hippo();
-        pets[3] = new Lion();
-        pets[4] = new Tiger();
-        pets[5] = new Wolf();
+        Cat cat = new Cat();
+        Dog dog = new Dog();
+        Hippo hippo = new Hippo();
+        Lion lion = new Lion();
+        Tiger tiger = new Tiger();
+        Wolf wolf = new Wolf();
+        //The petOwner takes every Animals as his/her pet
+        PO.buyPet(cat);
+        PO.buyPet(dog);
+        PO.buyPet(hippo);
+        PO.buyPet(lion);
+        PO.buyPet(tiger);
+        PO.buyPet(wolf);
+
+        ArrayList<Animal> pets = PO.getPets();
         //Vet 클래스와 PetOwner 클래스의 메소드가 각 Animal Objects에 잘 적용되는 지 확인.
         for (Animal a:pets){
             vet.giveShot(a);
+        }
+        for (Animal a:pets){
+            PO.feed(a);
         }
         for (Animal a:pets){
             PO.feed(a);
@@ -24,6 +37,6 @@ public class AnimalLauncher {
             a.roam();
             a.sleep();
         }
-
+        System.out.println(cat.isHunger());
     }
 }

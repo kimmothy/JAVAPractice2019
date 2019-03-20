@@ -3,7 +3,7 @@ package Animals;
 public class Hippo extends Animal {
     @Override
     public void makeNoise(){
-        System.out.println("Hippo makes a noise. but i don't know the sound");
+        System.out.println("Hippo makes a noise. 'hipo hipo!");
     }
     @Override
     public void eat(){

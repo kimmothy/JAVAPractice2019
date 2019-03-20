@@ -10,4 +10,3 @@ public class Wolf extends Canine {
         System.out.println("wolf eats a fresh meat");
     }
 }
-

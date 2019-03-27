@@ -6,4 +6,7 @@ public class Vet {
         System.out.println("The vet gives a shot for your pet");
         a.makeNoise();
     }
+    public void makeDogBark(Dog dog) {
+        dog.bark();
+    }
 }

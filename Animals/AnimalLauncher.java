@@ -38,6 +38,16 @@ public class AnimalLauncher {
             a.roam();
             a.sleep();
         }
-        System.out.println(cat.isHunger());
+
+        //Check if the inherited private instance variable can be accessed thorough get/set methods
+        cat.setFood("fish");
+        dog.setFood("bone");
+        lion.setFood("zebra");
+        hippo.setFood("plants");
+        tiger.setFood("boar");
+        wolf.setFood("fresh meat");
+        for (Animal a:pets){
+            System.out.println(a.getFood());
+        }
     }
 }

@@ -20,7 +20,6 @@ public class AnimalLauncher {
         PO.buyPet(lion);
         PO.buyPet(tiger);
         PO.buyPet(wolf);
-        vet.makeDogBark(dog);
 
         ArrayList<Animal> pets = PO.getPets();
         //Vet 클래스와 PetOwner 클래스의 메소드가 각 Animal Objects에 잘 적용되는 지 확인.
@@ -49,5 +48,8 @@ public class AnimalLauncher {
         for (Animal a:pets){
             System.out.println(a.getFood());
         }
+        System.out.println(cat instanceof Cat);
+        System.out.println(cat instanceof Pet);
+        System.out.println(cat instanceof Animal);
     }
 }

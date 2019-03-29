@@ -1,6 +1,14 @@
-package Animals;
+package Robots;
+
+import Animals.Pet;
 
 public class RobotDog extends Robot implements Pet{
+    private String name;
+    public RobotDog(int voltage, String name){
+        super(voltage);
+        this.name = name;
+
+    }
     @Override
     public void beFriendly(){
         System.out.println("Robot dog sing a sweet song. It's lyrics are 'bow wow'");
@@ -11,7 +19,7 @@ public class RobotDog extends Robot implements Pet{
     }
     @Override
     public void initiate(){
-        super.initiate();
+        System.out.println(this.getClass().getSimpleName()+" "+this.name+"started operation");
         System.out.println("This robot dog is your friend now");
     }
 }

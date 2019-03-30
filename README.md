@@ -2,7 +2,8 @@
 
 | PackageName | Date | Classes |
 |:--------|:--------|:--------|
-| Animals | 2019.03.18 | Animal,Vet,PetOwner |
+| Animals | 2019.03.18 | Animal,Vet,PetOwner,Pet |
+| Robots | 2019.03.28 | Robot |
 | ... | ... | ... |
 
 There are three important classes in the package Animals

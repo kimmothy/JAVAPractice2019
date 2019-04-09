@@ -2,7 +2,8 @@
 
 | PackageName | Date | Classes |
 |:--------|:--------|:--------|
-| Animals | 2019.03.18 | Animal,Vet,PetOwner |
+| Animals | 2019.03.18 | Animal,Vet,PetOwner,Pet |
+| Robots | 2019.03.28 | Robot, RobotDog |
 | ... | ... | ... |
 
 There are three important classes in the package Animals
@@ -18,3 +19,9 @@ PetOwner: This class represent someone who owns Animals. It may have only one pe
           It contains it's pets in an arraylist which gets Animal type objects in it.
           It has two methods buyPet and feed. The first methods add an animal object to it's arraylist.
           And the second methods call the method eat of the Animal object
+     
+Pet : It's an interfaces that the animal classes that could be a pet should implement. 
+
+The important classes of Package Robots
+Robot: It's a superclass of RobotDog and Agent. It defines the methods that Robots should have
+RobotDog: This is a subclass of Robot. And it also implements the interfacre Pet in the Animals Package. It has the methods from Robot class with the method from Pet interface.

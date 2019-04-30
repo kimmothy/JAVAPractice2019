@@ -3,6 +3,8 @@ package mygui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import mygui.CalButton;
+import mygui.NumButton;
 
 public class GUILauncher{
     /*
@@ -127,9 +129,12 @@ public class GUILauncher{
         /*
         각 버튼을 만들고 자리를 설정핸다.
         버튼 패널은 GridBackLayout을 사용하며 이에따라 GridBackConstraint를 통해 자리를 배치한다.
+        먼저 버튼의 배열과 GridBackConstraint의 배열을 같은 크기로 정의하여 순서에 맞게 버튼과 GBC를 채워넣는다.
+        각 버튼이 정의되면 뒤에서 각 배열 번호대로 패널에 넣는다.
          */
         JButton[] buttons = new JButton[23];
         GridBagConstraints[] gbc = new GridBagConstraints[23];
+        //모든 버튼에 적용되야할 설정이다.
         for (int i = 0; i<=22; i++){
             gbc[i] = new GridBagConstraints();
             gbc[i].weightx = 1;
@@ -140,12 +145,14 @@ public class GUILauncher{
         buttons[0].addActionListener(numListener);
         gbc[0].gridx = 2;
         gbc[0].gridy = 5;
+        //0을 제외한 NumButton은 각자의 숫자와 위치에 규칙이 있어서 반복문을 통해 짧게 생성한다.
         for (int i = 1; i <= 9; i++) {
             buttons[i] = new NumButton(i);
             buttons[i].addActionListener(numListener);
             gbc[i].gridx = (i - 1) % 3 + 2;
             gbc[i].gridy = 4 - ((i - 1) / 3);
         }
+        //CalButton은 따로 생성하되 자리 배치는 반복문으로 간결하게 한다.
         buttons[10] = new CalButton(CalButton.CalType.PLUS);
         buttons[11] = new CalButton(CalButton.CalType.MINUS);
         buttons[12] = new CalButton(CalButton.CalType.MULTIPLY);
@@ -202,6 +209,7 @@ public class GUILauncher{
         M-: Memory minus 현재 계산을 수행하여 메모리에 저장된 값에 뺀다.
         MR: Memory read 메모리에 저장된 값을 읽어온다.
         MC: Memory clear 메모리에 저장된 값을 삭제한다.
+        각각 설정하고 리스너를 붙인 다음 위치 조정은 반복문으로 한번에 한다.
          */
         buttons[18] = new JButton("MS");
         buttons[18].addActionListener(e -> {
@@ -237,6 +245,7 @@ public class GUILauncher{
             gbc[17 + i].gridx = 1;
             gbc[17 + i].gridy = i;
         }
+        //설정된 버튼과 GridBackConstraint의 배열에서 하나씩 값을 불러와, 패널에 채워 넣는다.
         for (int i = 0; i <= 22; i++) {
             buttonPanel.add(buttons[i], gbc[i]);
         }

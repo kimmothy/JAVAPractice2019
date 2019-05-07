@@ -3,51 +3,59 @@ package mygui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import mygui.CalButton;
-import mygui.NumButton;
 
-public class GUILauncher{
+public class CalculatorLauncher {
     /*
+    enum OperType은 계산기가 계산할 예정인 수식을 알 수 있게 하기 위한 열거형이다.
     currentNum은 사용자가 입력하는 수
     previousNum은 입력되어있는 수
     memoryNum은 따로 저장되어 사용자가 원할 때 활용할 수 있는 수
-    calType은 열거형으로 calButton을 통해 인식되며 계산 수행에 필요한 변수이다.
+    operator는 열거형인 OperType의 변수로 수행에 필요한 변수이다.
     afterDot은 소수점 아래로 내려갈때 몇번째 자리인지 담당한다.
     아래의 세개의 ~Print는 위 변수들의 정보를 사용자에게 출력한다.
      */
+    public enum OperType {PLUS("+"), MINUS("-"), MULTIPLY("*"), DIVIDE("/"), NONE(" ");
+        private final String mark;
+        OperType(String mark){
+            this.mark = mark;
+        }
+        public String getMark() {
+            return mark;
+        }
+    }
     private double memoryNum = 0;
     private double previousNum = 0;
     private double currentNum = 0;
-    private CalButton.CalType calType = CalButton.CalType.NONE;
+    private CalculatorLauncher.OperType operator = CalculatorLauncher.OperType.NONE;
     private int afterDot = 0;
-    private JLabel memoryPrint = new JLabel("memory:   " + memoryNum + "                              ");
-    private JLabel previousPrint = new JLabel(previousNum + "          "+this.calType.getMark());
+    private JLabel memoryPrint = new JLabel("Memory:   " + memoryNum + "                              ");
+    private JLabel previousPrint = new JLabel(previousNum + "          "+this.operator.getMark());
     private JLabel currentPrint = new JLabel(""+currentNum);
 
     //변경된 수치에 맞춰 라벨을 수정하는 함수
     private void updateLabels(){
         memoryPrint.setText("Memory:   " + memoryNum + "                              ");
-        previousPrint.setText(previousNum + "          "+this.calType.getMark());
+        previousPrint.setText(previousNum + "          "+this.operator.getMark());
         currentPrint.setText(""+currentNum);
     }
     //기초적인 계산을 담당하는 함수
     private double calculate(){
         double tmp = 4;
-        if (this.calType == CalButton.CalType.NONE & currentNum == 0){
+        if (this.operator == CalculatorLauncher.OperType.NONE & currentNum == 0){
             tmp = previousNum;
-        } else if (this.calType == CalButton.CalType.NONE & currentNum != 0){
+        } else if (this.operator == CalculatorLauncher.OperType.NONE & currentNum != 0){
             tmp = currentNum;
-        } else if (this.calType == CalButton.CalType.PLUS){
+        } else if (this.operator == CalculatorLauncher.OperType.PLUS){
             tmp = previousNum + currentNum;
-        } else if (this.calType == CalButton.CalType.MINUS){
+        } else if (this.operator == CalculatorLauncher.OperType.MINUS){
             tmp = previousNum - currentNum;
-        } else if (this.calType == CalButton.CalType.MULTIPLY){
+        } else if (this.operator == CalculatorLauncher.OperType.MULTIPLY){
             tmp = previousNum * currentNum;
-        } else if (this.calType == CalButton.CalType.DIVIDE){
+        } else if (this.operator == CalculatorLauncher.OperType.DIVIDE){
             tmp = previousNum / currentNum;
         }
         currentNum = 0;
-        this.calType = CalButton.CalType.NONE;
+        this.operator = CalculatorLauncher.OperType.NONE;
         afterDot = 0;
 
         return tmp;
@@ -81,26 +89,6 @@ public class GUILauncher{
         labelPanel.add(previousPrint, "Center");
         labelPanel.add(currentPrint, "East");
 
-        /*숫자 버튼과 계산 버튼의 리스너를 미리 람다로 정의한다.
-        숫자버튼의 경우 버튼에서 수를 불러오고 소수이하 여부에 따라 다르게 적용한다.
-        소수점 이하 자리수(afterDot)가 0이라면 기존의 수에 10을 곱하고 새 수를 더한다.('.'버튼을 눌러야 이 변수가 1이 된다.)
-        afterDot이 1 이상이면 그 수만큼 10을 제곱한다. 해당 수에 새로 입력한 수를 곱해 기존의 수에 더한다.
-        */
-        ActionListener numListener = e -> {
-
-            NumButton b = (NumButton) e.getSource();
-            int num = b.getNum();
-            if (afterDot == 0) {
-                currentNum = currentNum * 10 + num;
-            } else {
-                double dividingNum = Math.pow(10,afterDot);
-                currentNum += num/dividingNum;
-                afterDot += 1;
-            }
-
-            System.out.println(num^2);
-            updateLabels();
-        };
         /*
         +,-,*,/ 네가지 계산식의 리스너. 이전 계산의 결과에 이어서 계산할 경우, 연속해서 계산 명령을 내릴 경우를 고려한다.
 
@@ -108,23 +96,7 @@ public class GUILauncher{
         두번째 경우는 기존 계산의 결과와 상관없이 새로운 계산을 할 경우이다. 기존 계산이 없어도 이 부분이 수행된다.
         세번쨰 경우는 5+4*2/6 이런 식으로 계속해서 계산하려고 하는 경우이다. 계산 유형에 상관 없이 입력 순서대로 계산 된다.
         */
-        ActionListener calListner = e -> {
-            CalButton b = (CalButton) e.getSource();
-            if ((this.calType == CalButton.CalType.NONE) & (currentNum == 0)) {
-                //여기선 아무것도 하지 않는다. 뒤에 다른 두 조건의 동작을 발동시키지 않기 위해 둔 조건
-                //
-            } else if ((this.calType == CalButton.CalType.NONE) & (currentNum != 0)) {
-                previousNum = calculate();
-                System.out.println(previousNum);
-            } else if (this.calType != CalButton.CalType.NONE) {
-                previousNum = calculate();
-                System.out.println(calType.getMark());
-            }
-            this.calType = b.getCalType();
-            updateLabels();
 
-
-        };
 
         /*
         각 버튼을 만들고 자리를 설정핸다.
@@ -142,25 +114,22 @@ public class GUILauncher{
             gbc[i].fill = GridBagConstraints.BOTH;
         }
         buttons[0] = new NumButton(0);
-        buttons[0].addActionListener(numListener);
         gbc[0].gridx = 2;
         gbc[0].gridy = 5;
         //0을 제외한 NumButton은 각자의 숫자와 위치에 규칙이 있어서 반복문을 통해 짧게 생성한다.
         for (int i = 1; i <= 9; i++) {
             buttons[i] = new NumButton(i);
-            buttons[i].addActionListener(numListener);
             gbc[i].gridx = (i - 1) % 3 + 2;
             gbc[i].gridy = 4 - ((i - 1) / 3);
         }
         //CalButton은 따로 생성하되 자리 배치는 반복문으로 간결하게 한다.
-        buttons[10] = new CalButton(CalButton.CalType.PLUS);
-        buttons[11] = new CalButton(CalButton.CalType.MINUS);
-        buttons[12] = new CalButton(CalButton.CalType.MULTIPLY);
-        buttons[13] = new CalButton(CalButton.CalType.DIVIDE);
+        buttons[10] = new OperButton(CalculatorLauncher.OperType.PLUS);
+        buttons[11] = new OperButton(CalculatorLauncher.OperType.MINUS);
+        buttons[12] = new OperButton(CalculatorLauncher.OperType.MULTIPLY);
+        buttons[13] = new OperButton(CalculatorLauncher.OperType.DIVIDE);
         for (int i = 1; i <= 4; i++) {
             gbc[9 + i].gridx = 5;
             gbc[9 + i].gridy = i;
-            buttons[9 + i].addActionListener(calListner);
         }
         //소수점이하 수를 입력하기 위한 버튼이다. afterDot 변수는 NumButton의 리스너에서 활용된다.
         //만약 이미 소수점 이하일 떄 이 버튼을 누르면 아무 일도 일어나지 않는다.
@@ -188,7 +157,7 @@ public class GUILauncher{
             previousNum = 0;
             currentNum = 0;
             memoryNum = 0;
-            this.calType = CalButton.CalType.NONE;
+            this.operator = CalculatorLauncher.OperType.NONE;
             updateLabels();
         });
         gbc[16].gridx = 2;
@@ -252,7 +221,72 @@ public class GUILauncher{
         frame.setVisible(true);
     }
     public static void main(String[] arg){
-        GUILauncher button2 = new GUILauncher();
+        CalculatorLauncher button2 = new CalculatorLauncher();
         button2.go("Calculator");
+    }
+
+    public class OperButton extends JButton{
+        private final OperType operType;
+        ActionListener opListner = e -> {
+            OperButton b = (OperButton) e.getSource();
+            if ((operator == CalculatorLauncher.OperType.NONE) & (currentNum == 0)) {
+                //여기선 아무것도 하지 않는다. 뒤에 다른 두 조건의 동작을 발동시키지 않기 위해 둔 조건
+                //
+            } else if ((operator == CalculatorLauncher.OperType.NONE) & (currentNum != 0)) {
+                previousNum = calculate();
+                System.out.println(previousNum);
+            } else if (operator != CalculatorLauncher.OperType.NONE) {
+                previousNum = calculate();
+                System.out.println(operator.getMark());
+            }
+            operator = b.getOperType();
+            updateLabels();
+
+
+        };
+
+        public OperButton(OperType operType){
+            super(operType.mark);
+            this.operType = operType;
+            this.addActionListener(opListner);
+        }
+
+        public OperType getOperType() {
+            return operType;
+        }
+    }
+
+
+
+    public class NumButton extends JButton {
+        private final int num;
+        /*숫자 버튼과 계산 버튼의 리스너를 미리 람다로 정의한다.
+        숫자버튼의 경우 버튼에서 수를 불러오고 소수이하 여부에 따라 다르게 적용한다.
+        소수점 이하 자리수(afterDot)가 0이라면 기존의 수에 10을 곱하고 새 수를 더한다.('.'버튼을 눌러야 이 변수가 1이 된다.)
+        afterDot이 1 이상이면 그 수만큼 10을 제곱한다. 해당 수에 새로 입력한 수를 곱해 기존의 수에 더한다.
+        */
+        ActionListener numListener = e -> {
+
+            NumButton b = (NumButton) e.getSource();
+            int num = b.getNum();
+            if (afterDot == 0) {
+                currentNum = currentNum * 10 + num;
+            } else {
+                double dividingNum = Math.pow(10,afterDot);
+                currentNum += num/dividingNum;
+                afterDot += 1;
+            }
+
+            System.out.println(num^2);
+            updateLabels();
+        };
+        public NumButton(int n){
+            super(""+n);
+            this.num = n;
+            this.addActionListener(numListener);
+        }
+        int getNum(){
+            return num;
+        }
     }
 }

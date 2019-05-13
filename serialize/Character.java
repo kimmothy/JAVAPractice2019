@@ -26,4 +26,8 @@ public class Character implements Serializable {
     public int getAge() {
         return age;
     }
+
+    public void setAccesscode() {
+        this.accesscode = random.nextInt(999999);
+    }
 }

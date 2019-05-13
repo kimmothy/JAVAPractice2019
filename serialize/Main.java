@@ -16,6 +16,9 @@ public class Main {
             }
             ObjectInputStream load = new ObjectInputStream(Files.newInputStream(p));
             Party party = (Party) load.readObject();
+            for (Character c:party.getMembers()){
+                c.setAccesscode();
+            }
             return party;
         }
         catch (Exception e) {
@@ -32,7 +35,7 @@ public class Main {
         party.addMember(c2);
         party.addMember(c3);
         for (Character c: party.getMembers()){
-            System.out.println(c.getName() + c.getAge() + "살");
+            System.out.println(c.getName() +" "+ c.getAge() + "살 " +c.getAccesscode()+"번 코드로 접근");
         }
         try {
             Path p = Paths.get("c:/JavaTest", "CharacterData.ser");

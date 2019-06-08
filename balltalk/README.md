@@ -24,5 +24,5 @@ Socket s = new Socket("54.210.11.118", 4242)
 프로그램을 실행시켰을 때 메시지 표시화면이 입력 화면을 가리고 있을 수 있습니다.
 창을 옆으로 옮겨서 샤옹하시면 됩니다.
 
-이제 Ball messenger로 메시지를 주고받아보세요.
+이제 Ball messenger로 메시지를 주고받아보세요.^^
 ![Reciever2](./img/ReceiverCapture2.JPG)

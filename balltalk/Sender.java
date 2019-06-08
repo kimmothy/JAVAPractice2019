@@ -20,8 +20,11 @@ public class Sender {
 
         for (int i = 0; i < 4; i++){
             textFields[i] = new JTextField();
-            textFields[i].setText("0");
         }
+        textFields[0].setText("1");
+        textFields[1].setText("100");
+        textFields[2].setText("0");
+        textFields[3].setText("1");
         labels[0] = new JLabel("Color");
         labels[1] = new JLabel("Height");
         labels[2] = new JLabel("Move_x");
@@ -73,9 +76,10 @@ public class Sender {
             int maxHeight = Integer.parseInt(textFields[1].getText());
             int movex = Integer.parseInt(textFields[2].getText());
             int weight = Integer.parseInt(textFields[3].getText());
-            for (int i = 0; i < 4; i++){
-                textFields[i].setText("0");
-            }
+            textFields[0].setText("1");
+            textFields[1].setText("100");
+            textFields[2].setText("0");
+            textFields[3].setText("1");
             Ball b = new Ball(color, maxHeight, movex, weight);
             client.sendBall(b);
         };

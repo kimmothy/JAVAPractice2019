@@ -10,6 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
+import balltalk.Ball;
 
 public class Server {
     ArrayList clientOutputStreams;

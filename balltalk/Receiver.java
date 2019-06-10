@@ -3,6 +3,8 @@ package balltalk;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import balltalk.Ball;
+import balltalk.ClientMain;
 
 public class Receiver implements Runnable {
     private ArrayList<Ball> balls = new ArrayList<Ball>();

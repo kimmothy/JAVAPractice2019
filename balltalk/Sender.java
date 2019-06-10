@@ -3,6 +3,8 @@ package balltalk;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import balltalk.Ball;
+import balltalk.ClientMain;
 
 public class Sender {
     JTextField[] textFields = new JTextField[4];

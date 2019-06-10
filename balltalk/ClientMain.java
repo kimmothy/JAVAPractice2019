@@ -2,6 +2,9 @@ package balltalk;
 
 import java.io.*;
 import java.net.Socket;
+import balltalk.Ball;
+import balltalk.Sender;
+import balltalk.Receiver;
 
 public class ClientMain {
     private ObjectInputStream reader;
@@ -27,7 +30,7 @@ public class ClientMain {
 
     private void setUpNetworking() {
         try {
-            Socket s = new Socket("54.210.11.118", 4242);
+            Socket s = new Socket("127.0.0.1", 4242);
             reader = new ObjectInputStream(s.getInputStream());
             writer = new ObjectOutputStream(s.getOutputStream());
             System.out.println("networking established");

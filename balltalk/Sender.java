@@ -15,6 +15,7 @@ public class Sender {
     }
     void go(){
         JFrame frame = new JFrame("Insert Ball Message");
+        frame.setLocation(200, 250);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500,350);
         Container pane = frame.getContentPane();

@@ -19,6 +19,7 @@ public class Receiver implements Runnable {
     @Override
     public void run() {
         JFrame frame = new JFrame();
+        frame.setLocation(700, 250);
         frame.setTitle("Ball Messages");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Receiver.MyDrawPanel drawPanel = new Receiver.MyDrawPanel();

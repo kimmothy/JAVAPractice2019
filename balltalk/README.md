@@ -21,8 +21,6 @@ ClientMain.java의 30라인을 보시면 다음과 같이 쓰여있습니다.
 이 화면의 GUI를 통해 메세지를 보낼 수 있습니다.  
 ![Reciever](./img/ReceiverCapture.JPG)  
 주고 받은 메시지가 표시되는 화면입니다. 메시지가 없는 초기화면은 이렇게 하얗게 보입니다.  
-프로그램을 실행시켰을 때 메시지 표시화면이 입력 화면을 가리고 있을 수 있습니다.  
-창을 옆으로 옮겨서 샤옹하시면 됩니다.  
 
 이제 Ball messenger로 메시지를 주고받아보세요.^^
 ![Reciever2](./img/ReceiverCapture2.JPG)

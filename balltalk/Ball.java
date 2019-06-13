@@ -12,7 +12,7 @@ public class Ball implements Serializable {
     private int move_x;
     private int move_y;
     private int leftOver;
-    private int interval;
+    private int period;
     private int time;
 
     public Ball(int c, int maxHeight, int mx, int weight){
@@ -30,7 +30,7 @@ public class Ball implements Serializable {
             num1++;
             if (num2 < num1*weight){
                 this.leftOver = num2;
-                this.interval = (num1-1)*2;
+                this.period = (num1-1)*2;
                 break;
             }
         }
@@ -50,16 +50,16 @@ public class Ball implements Serializable {
 
     private void changeAcceleration(){
         time += 1;
-        if(time < interval/2){
+        if(time < period /2){
             move_y = -time*weight;
-        } else if (time == interval/2){
+        } else if (time == period /2){
             move_y = -(time*weight + leftOver);
-        } else if (time == interval/2 + 1){
+        } else if (time == period /2 + 1){
             move_y = (time-1)*weight + leftOver;
-        } else if (time > interval/2 + 1){
-            move_y = (interval - time + 1)*weight;
+        } else if (time > period /2 + 1){
+            move_y = (period - time + 1)*weight;
         }
-        if (time == interval){
+        if (time == period){
             time = 0;
         }
     }
